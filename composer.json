@@ -1,0 +1,16 @@
+{
+    "name": "visualplus/helper",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "doojinso",
+            "email": "sodoojin@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Visualplus\\Helper\\": "src/"
+        }
+    }
+}

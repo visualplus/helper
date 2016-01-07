@@ -13,6 +13,12 @@ class SecureUrlGenerator extends \Illuminate\Routing\UrlGenerator
     protected $mustBeSecure = [];
 
     /**
+     * ssl 적용하지 않는 url
+     * @var array
+     */
+    protected $except = [];
+
+    /**
      * SecureUrlGenerator constructor.
      * @param RouteCollection $routes
      * @param Request $request
@@ -22,6 +28,8 @@ class SecureUrlGenerator extends \Illuminate\Routing\UrlGenerator
         parent::__construct($routes, $request);
 
         $this->mustBeSecure = config('o2helper.must_be_secure');
+
+        $this->except = config('o2helper.except');
     }
 
     /**
@@ -67,19 +75,22 @@ class SecureUrlGenerator extends \Illuminate\Routing\UrlGenerator
      */
     protected function isSecurePath($path)
     {
-        $secure = false;
-
         if ($path != '/') {
             $path = trim($path, '/');
         }
 
-        foreach ($this->mustBeSecure as $mustBeSecure) {
-            if (Str::is($mustBeSecure, $path)) {
-                $secure = true;
-                break;
+        foreach ($this->except as $except) {
+            if (Str::is($except, $path)) {
+                return false;
             }
         }
 
-        return $secure;
+        foreach ($this->mustBeSecure as $mustBeSecure) {
+            if (Str::is($mustBeSecure, $path)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -60,13 +60,13 @@ class SecureUrl
         }
 
         foreach ($this->except as $except) {
-            if (Str::is($except, $path)) {
+            if (preg_match('#^' . $except . '#', $path)) {
                 return false;
             }
         }
 
         foreach ($this->mustBeSecure as $mustBeSecure) {
-            if (Str::is($mustBeSecure, $path)) {
+            if (preg_match('#^' . $mustBeSecure . '#', $path)) {
                 return true;
             }
         }

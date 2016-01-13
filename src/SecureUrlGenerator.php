@@ -33,18 +33,6 @@ class SecureUrlGenerator extends \Illuminate\Routing\UrlGenerator
     }
 
     /**
-     * script나 css등은 모두 https로 사용
-     *
-     * @param $url
-     * @param null $secure
-     * @return string
-     */
-    public function asset($url, $secure = null)
-    {
-        return parent::asset($url, true);
-    }
-
-    /**
      * secure url 적용
      *
      * @param $path

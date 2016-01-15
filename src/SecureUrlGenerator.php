@@ -40,9 +40,9 @@ class SecureUrlGenerator extends \Illuminate\Routing\UrlGenerator
      * @param bool $secure
      * @return string
      */
-    public function to($path, $extra = [], $secure = null)
+    public function to($path, $extra = [], $secure = false)
     {
-        $secure = $this->isSecurePath($path);
+        $secure = ( $secure || $this->isSecurePath($path) );
 
         return parent::to($path, $extra, $secure);
     }
